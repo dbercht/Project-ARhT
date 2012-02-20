@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  clininc: 
+  metric_one: 1
+  metric_two: 1
+  metric_three: 1
+
+two:
+  clininc: 
+  metric_one: 1
+  metric_two: 1
+  metric_three: 1

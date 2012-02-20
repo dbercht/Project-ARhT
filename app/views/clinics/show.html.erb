@@ -1,0 +1,104 @@
+<p id="notice"><%= notice %></p>
+
+<script type="text/javascript">
+var chart;
+jQuery(document).ready(function() {
+	var options = {
+		chart: {
+			renderTo: 'statistics',
+         zoomType: 'x',
+         defaultSeriesType: 'column'
+      },
+      title: {
+         text: '<%= @user.title %>'
+      },
+      subtitle: {
+         text: 'Therapy Results'
+      },
+      xAxis: {
+         type: 'datetime',
+         dateTimeLabelFormats: { // don't display the dummy year
+            month: '%e. %b',
+            year: '%b'
+         }
+      },
+      yAxis: {
+         min: 0,
+         title: {
+            text: 'Performance'
+         }
+      },
+      legend: {
+         layout: 'vertical',
+         align: 'left',
+         verticalAlign: 'top',
+         x: 100,
+         y: 70,
+         floating: true,
+         shadow: true
+      },
+      tooltip: {
+         formatter: function() {
+            return ''+
+               this.y +'';
+         }
+      },
+      plotOptions: {
+         column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+         }
+      },
+      series: [
+				<% @str = Array.new %>
+				<% ClientSession::METRICS.each do |metric| %>
+					<% @str << "{name: '#{metric}' }"%>
+				<% end %>
+				<%= @str.join(", ") %>
+		]
+	};
+ 
+	// Load data asynchronously using jQuery. On success, add the data
+   // to the options and initiate the chart.
+   // This data is obtained by exporting a GA custom report to TSV.
+   // http://api.jquery.com/jQuery.get/
+	jQuery.getJSON('<%= user_client_sessions_path(@user, :format =>'json')%>', function(data) {
+				<% ClientSession::METRICS.each do |metric| %>
+					<%= "var #{metric} = [];"%>
+				<% end %>
+		jQuery.each(data, function(key, value) {
+	
+			var d = new Date(value.created_at);
+		  var curr_minute = d.getMinutes();
+		  var curr_hour = d.getHours();
+		  var curr_date = d.getDate();
+  		var curr_month = d.getMonth(); //months are zero based
+  		var curr_year = d.getFullYear();
+
+				<% ClientSession::METRICS.each do |metric| %>
+//Need to fucking fix this
+
+					<%= "#{metric}.push( [ Date.UTC(curr_year, curr_month, curr_date, curr_hour, curr_minute) , value.#{metric}] );"%>
+			<% end %>
+	  });      
+
+				<%@itr = 0 %>
+				<% ClientSession::METRICS.each do |metric| %>
+
+					<%= "options.series[#{@itr}].data = #{metric};"%>
+					<%	@itr = @itr+1 %>
+				<% end %>
+      
+      chart = new Highcharts.Chart(options);
+   });
+   
+});
+</script>	
+
+<div id='statistics' style='width: 100%; height: 400px; margin: 0 auto'></div>
+
+
+<%= link_to 'Edit', edit_user_clinic_path(@user) %> |
+<%= link_to 'Back', user_path(@user) %>
+
+

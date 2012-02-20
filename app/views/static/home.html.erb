@@ -1,0 +1,6 @@
+<% if current_user.therapist? %>
+	<%= link_to 'Clients', users_path %>
+<% else %>
+	<%= link_to 'Edit Registration Information', edit_user_registration_path %>
+<% end %>
+

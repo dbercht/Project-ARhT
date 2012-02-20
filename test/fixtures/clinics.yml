@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  therapist_id: 1
+  client_id: 1
+  create: MyString
+  destroy: MyString
+
+two:
+  therapist_id: 1
+  client_id: 1
+  create: MyString
+  destroy: MyString

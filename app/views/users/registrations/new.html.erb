@@ -1,0 +1,21 @@
+<h2>Sign up</h2>
+
+<%= form_for(@user, :url => { :action => :create}) do |f| %>
+
+  <div><%= f.label :email %><br />
+  <%= f.email_field :email %></div>
+
+  <div><%= f.label 'First Name' %><br />
+  <%= f.text_field :name %></div>
+  <div><%= f.label 'Last Name' %><br />
+  <%= f.text_field :surname %></div>
+
+  <div><%= f.label :password %><br />
+  <%= f.password_field :password %></div>
+
+  <div><%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation %></div>
+
+  <div><%= f.submit "Sign up" %></div>
+<% end %>
+

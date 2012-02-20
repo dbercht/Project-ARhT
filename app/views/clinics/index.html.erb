@@ -1,0 +1,25 @@
+<h1>Listing clinics</h1>
+
+<table>
+  <tr>
+    <th>Therapist</th>
+    <th>Client</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @clinics.each do |clinic| %>
+  <tr>
+    <td><%= clinic.therapist_id %></td>
+    <td><%= clinic.client_id %></td>
+    <td><%= link_to 'Show', clinic %></td>
+    <td><%= link_to 'Edit', edit_clinic_path(clinic) %></td>
+    <td><%= link_to 'Destroy', clinic, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Clinic', new_clinic_path %>
