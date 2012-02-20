@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  mean: 9.99
+  signal_length: 9.99
+  rms: 9.99
+  vertices: 9.99
+  baseline_crosses: 9.99
+  fundamental_frequency: 9.99
+  variance: 9.99
+  region_length: 9.99
+  references: 
+  references: 
+
+two:
+  mean: 9.99
+  signal_length: 9.99
+  rms: 9.99
+  vertices: 9.99
+  baseline_crosses: 9.99
+  fundamental_frequency: 9.99
+  variance: 9.99
+  region_length: 9.99
+  references: 
+  references: 

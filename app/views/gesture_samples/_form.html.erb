@@ -1,0 +1,56 @@
+<%= form_for(@gesture_sample, :url => gesture_classifier_gesture_samples_path(@gesture, @classifier)) do |f| %>
+  <% if @gesture_sample.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@gesture_sample.errors.count, "error") %> prohibited this gesture from being saved:</h2>
+
+      <ul>
+      <% @gesture_sample.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :mean %><br />
+    <%= f.number_field :mean %>
+  </div>
+  <div class="field">
+    <%= f.label :signal_length %><br />
+    <%= f.number_field :signal_length %>
+  </div>
+  <div class="field">
+    <%= f.label :rms %><br />
+    <%= f.number_field :rms %>
+  </div>
+  <div class="field">
+    <%= f.label :vertices %><br />
+    <%= f.text_field :vertices %>
+  </div>
+  <div class="field">
+    <%= f.label :baseline_crosses %><br />
+    <%= f.text_field :baseline_crosses %>
+  </div>
+  <div class="field">
+    <%= f.label :fundamental_frequency %><br />
+    <%= f.number_field :fundamental_frequency %>
+  </div>
+  <div class="field">
+    <%= f.label :variance %><br />
+    <%= f.number_field :variance %>
+  </div>
+  <div class="field">
+    <%= f.label :region_length %><br />
+    <%= f.number_field :region_length %>
+  </div>
+  <div class="field">
+    <%= f.hidden_field :classifier_id, :value => params[:classifier_id] %>
+  </div>
+  <div class="field">
+    <%= f.hidden_field :gesture_id, :value => params[:gesture_id] %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+

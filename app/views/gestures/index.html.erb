@@ -1,0 +1,7 @@
+<%= link_to 'New Gesture', new_gesture_path %>
+<hr />
+
+<%= render :partial => 'gesture', :collection => @gestures %>
+
+<br />
+<%=link_to 'Home', root_url %>

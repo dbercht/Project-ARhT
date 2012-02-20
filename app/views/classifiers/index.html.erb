@@ -1,0 +1,9 @@
+<%= link_to 'Edit '<<@gesture.title, edit_gesture_path(@gesture) %>
+
+<%= link_to 'New Classifier', new_classifier_path %>
+<hr />
+
+<%= render :partial => 'classifier', :collection => @classifiers %>
+
+<br />
+<%= link_to 'Gestures', gestures_path %>
