@@ -15,6 +15,14 @@ ProjectARhT::Application.routes.draw do
 	
 	resources :client_sessions
 
+	resources :gestures do
+		resources :classifiers do
+			resources :gesture_samples, :except => ['edit', 'update']
+		end
+	end
+
+	resources :classifiers
+
 	namespace :api do
   	namespace :v1  do
   	  resources :tokens,:only => [:create, :destroy]

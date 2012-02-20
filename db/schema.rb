@@ -11,13 +11,40 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120218184442) do
+ActiveRecord::Schema.define(:version => 20120220203705) do
+
+  create_table "classifiers", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "clinics", :force => true do |t|
     t.integer  "therapist_id"
     t.integer  "client_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "gesture_samples", :force => true do |t|
+    t.integer  "mean"
+    t.integer  "signal_length"
+    t.integer  "rms"
+    t.decimal  "vertices",              :precision => 6, :scale => 3
+    t.decimal  "baseline_crosses",      :precision => 6, :scale => 3
+    t.integer  "fundamental_frequency"
+    t.integer  "variance"
+    t.integer  "region_length"
+    t.integer  "classifier_id"
+    t.integer  "gesture_id"
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
+  end
+
+  create_table "gestures", :force => true do |t|
+    t.text     "title"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "sessions", :force => true do |t|

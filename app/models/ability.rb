@@ -8,7 +8,12 @@ class Ability
       can :manage, User, :role => User::ROLES[0], :inverse_clinic => { :id => user.clinic_ids }
       can :manage, Clinic, :therapist_id => user.id
       can :manage, ClientSession, :clinic => { :therapist_id => user.id }
-    end
+			can :manage, Gesture
+			can :manage, GestureSample
+			can :manage, Classifier
+    elsif user.client?
+			can :manage, GestureSample
+		end
     #
     # The first argument to `can` is the action you are giving the user permission to do.
     # If you pass :manage it will apply to every action. Other common actions here are
