@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120220203705) do
+ActiveRecord::Schema.define(:version => 20120221202346) do
 
   create_table "classifiers", :force => true do |t|
     t.string   "title"
@@ -37,8 +37,9 @@ ActiveRecord::Schema.define(:version => 20120220203705) do
     t.integer  "region_length"
     t.integer  "classifier_id"
     t.integer  "gesture_id"
-    t.datetime "created_at",                                          :null => false
-    t.datetime "updated_at",                                          :null => false
+    t.datetime "created_at",                                                             :null => false
+    t.datetime "updated_at",                                                             :null => false
+    t.boolean  "library_sample",                                      :default => false
   end
 
   create_table "gestures", :force => true do |t|

@@ -1,5 +1,4 @@
 class GestureSample < ActiveRecord::Base
-
 	belongs_to :classifier
-	has_one :gesture
+	belongs_to :gesture
 end

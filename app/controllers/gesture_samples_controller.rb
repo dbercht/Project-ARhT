@@ -19,6 +19,8 @@ class GestureSamplesController < ApplicationController
 		@gesture = Gesture.find(params[:gesture_id])
     @classifier = Classifier.find(params[:classifier_id])
 		@gesture_sample = GestureSample.create(params[:gesture_sample])
+		@gesture_sample.classifier = @classifier
+		@gesture_sample.gesture = @gesture
     respond_to do |format|
       if @gesture_sample.save
         format.html { redirect_to @gesture, notice: 'Gesture Sample was successfully created.' }
