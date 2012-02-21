@@ -4,7 +4,7 @@ class GestureSamplesController < ApplicationController
   def index
 		@gesture = Gesture.find(params[:gesture_id])
 		@classifier = Classifier.find(params[:classifier_id])
-		@gestures_samples = #GestureSample.find(:all, :conditions => {:gesture_id => params[:gesture_id], :classifier_id => params[:classifier_id], :library_sample=> 1}) 
+		@gestures_samples = GestureSample.find(:all, :conditions => {:gesture_id => params[:gesture_id], :classifier_id => params[:classifier_id], :library_sample=> true}) 
   end
 
   def new
