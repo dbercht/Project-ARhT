@@ -26,8 +26,12 @@ class User < ActiveRecord::Base
 	end
 
   def self.clients
-    where(role: ROLES[0], )
+    where(role: ROLES[0])
   end
+
+	def therapist?
+		!!(role == ROLES[0])
+	end
 
 	def title
 		if name.nil?
