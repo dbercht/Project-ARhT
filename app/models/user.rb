@@ -11,7 +11,9 @@ class User < ActiveRecord::Base
 
 	has_many :clinics, :foreign_key => 'therapist_id', :dependent => :destroy
 	has_many :clients, :through => :clinics, :order => [:surname, :name, :email]
-	has_one :inverse_clinic, :class_name => 'Clinic', :foreign_key => 'client_id', :dependent => :destroy
+
+	has_one :inverse_clinic, :class_name => 'Clinic', :foreign_key => 'client_id', :dependent => :destroy, :select => [:id, :therapy_start_hour, :therapy_start_minute, :therapy_repetitions, :therapy_repetition_interval]
+
 	has_one :therapist, :through => :inverse_clinic
 
 	validates :name, :presence => true, :length => {:minimum => 1}

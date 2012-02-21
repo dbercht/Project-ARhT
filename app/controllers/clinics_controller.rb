@@ -28,6 +28,7 @@ class ClinicsController < ApplicationController
   # GET /clinics/new.json
   def new
     @clinic = Clinic.new
+		@gestures = Gesture.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,7 +38,7 @@ class ClinicsController < ApplicationController
 
   # GET /clinics/1/edit
   def edit
-    @clinic = Clinic.find(params[:user_id])
+    @clinic = User.find(params[:user_id]).inverse_clinic
   end
 
   # POST /clinics
@@ -47,10 +48,10 @@ class ClinicsController < ApplicationController
 
     respond_to do |format|
       if @clinic.save
-        format.html { redirect_to @clinic, notice: 'Clinic was successfully created.' }
-        format.json { render json: @clinic, status: :created, location: @clinic }
+        format.html { redirect_to @clinic.client, notice: 'Clinic was successfully created.' }
+        format.json { render json: @clinic, status: :created, location: @clinic.client }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to @clinic.client }
         format.json { render json: @clinic.errors, status: :unprocessable_entity }
       end
     end
@@ -59,14 +60,15 @@ class ClinicsController < ApplicationController
   # PUT /clinics/1
   # PUT /clinics/1.json
   def update
-    @clinic = Clinic.find(params[:id])
-
+		@gestures = Gesture.all
+		@user = User.find(params[:user_id])
+    @clinic = @user.inverse_clinic
     respond_to do |format|
       if @clinic.update_attributes(params[:clinic])
-        format.html { redirect_to @clinic, notice: 'Clinic was successfully updated.' }
+        format.html { redirect_to user_path(@user), notice: 'Clinic was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { redirect_to user_path(@user) }
         format.json { render json: @clinic.errors, status: :unprocessable_entity }
       end
     end
@@ -79,7 +81,7 @@ class ClinicsController < ApplicationController
     @clinic.destroy
 
     respond_to do |format|
-      format.html { redirect_to clinics_url }
+      format.html { redirect_to users_path }
       format.json { head :no_content }
     end
   end

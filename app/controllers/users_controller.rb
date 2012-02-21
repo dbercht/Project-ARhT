@@ -8,10 +8,12 @@ class UsersController < ApplicationController
   
 	def show
 		@user = User.find(params[:id])
-		@clinic = @user.inverse_clinic
+		@clinic = @user.inverse_clinic(:select => [:id])
+		@excercises = @clinic.gestures
+		@gestures = Gesture.all
 	  respond_to do |format|
 	    format.html
-	    format.json { render :status=>200, :json => @user.to_json }
+	    format.json { render :status=>200, :json => {:user => @user, :clinic => @clinic, :excercises => @excercises} }
 	  end
 	end
 
@@ -26,7 +28,7 @@ class UsersController < ApplicationController
     if @user.save
 			@user.therapist = current_user #Adding to list of current therapist 
       flash[:notice] = "Successfully created User." 
-      redirect_to users_path
+      redirect_to user_path(@user)
     else
       render 'users/registrations/new'
     end

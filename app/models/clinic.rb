@@ -3,5 +3,6 @@ class Clinic < ActiveRecord::Base
 	belongs_to :client, :class_name => "User"
 
 	has_many :client_sessions
+	has_and_belongs_to_many :gestures, :select => [:id, :title]
 
 end

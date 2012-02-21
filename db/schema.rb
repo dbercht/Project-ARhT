@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120221202346) do
+ActiveRecord::Schema.define(:version => 20120221221816) do
 
   create_table "classifiers", :force => true do |t|
     t.string   "title"
@@ -22,9 +22,20 @@ ActiveRecord::Schema.define(:version => 20120221202346) do
   create_table "clinics", :force => true do |t|
     t.integer  "therapist_id"
     t.integer  "client_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+    t.integer  "therapy_repetitions",         :default => 8
+    t.integer  "therapy_repetition_interval", :default => 60
+    t.integer  "therapy_start_hour",          :default => 10
+    t.integer  "therapy_start_minute",        :default => 0
   end
+
+  create_table "clinics_gestures", :id => false, :force => true do |t|
+    t.integer "clinic_id"
+    t.integer "gesture_id"
+  end
+
+  add_index "clinics_gestures", ["clinic_id", "gesture_id"], :name => "index_clinics_gestures_on_clinic_id_and_gesture_id"
 
   create_table "gesture_samples", :force => true do |t|
     t.integer  "mean"
