@@ -13,6 +13,7 @@ class Ability
 			can :manage, Classifier
     elsif user.client?
 			can :manage, GestureSample
+			can :read, User, :id => user.id
 		end
     #
     # The first argument to `can` is the action you are giving the user permission to do.
