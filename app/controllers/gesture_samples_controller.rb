@@ -22,7 +22,7 @@ class GestureSamplesController < ApplicationController
     respond_to do |format|
       if @gesture_sample.save
         format.html { redirect_to @gesture, notice: 'Gesture Sample was successfully created.' }
-        format.json { render json: @gesture_sample, status: :created, location: @gesture_sample }
+        format.json { render json: @gesture_sample, status: :created, location: root_url }
       else
         format.html { render action: "new" }
         format.json { render json: @gesture_sample.errors, status: :unprocessable_entity }
