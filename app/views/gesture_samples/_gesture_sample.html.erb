@@ -1,5 +1,8 @@
 <ul>
 	<li>
+		Sample #<%= gesture_sample.id %>
+	</li>
+	<li>
 		Mean:
 		<%= gesture_sample.mean %>
 	</li>
@@ -32,3 +35,4 @@
 		<%= gesture_sample.region_length %><br />
 	</li>
 </ul>
+<%=link_to 'Delete', gesture_classifier_gesture_sample_path(@gesture, @classifier, gesture_sample), :method => :delete, :confirm => "Are you sure?" %>
