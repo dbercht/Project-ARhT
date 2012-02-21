@@ -1,6 +1,6 @@
 <%=link_to 'New Gesture Sample', new_gesture_classifier_gesture_sample_path(@gesture, @classifier) %>
 <hr />
 
+<%= render :partial => 'gesture_sample', :collection => @library_samples %>
 
-<%= render :partial => 'gesture_sample', :collection => @gesture_samples %>
 <%=link_to 'Back to Gestures', gestures_path %>
