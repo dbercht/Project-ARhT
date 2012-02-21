@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
     where(role: ROLES[0])
   end
 
-	def therapist?
+	def client?
 		!!(role == ROLES[0])
 	end
 
