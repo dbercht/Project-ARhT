@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 		@clinic = @user.inverse_clinic
 	  respond_to do |format|
 	    format.html
-	    format.any(:xml, :json) { render request.format.to_sym => @user }
+	    format.json { render :status=>200, @user.to_json }
 	  end
 	end
 
