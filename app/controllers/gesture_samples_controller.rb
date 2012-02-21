@@ -4,7 +4,7 @@ class GestureSamplesController < ApplicationController
   def index
 		@gesture = Gesture.find(params[:gesture_id])
 		@classifier = Classifier.find(params[:classifier_id])
-		@gestures_samples = GestureSample.find(:all, :conditions => {:gesture_id => params[:gesture_id], :classifier_id => params[:classifier_id]}) 
+		@gestures_samples = #GestureSample.find(:all, :conditions => {:gesture_id => params[:gesture_id], :classifier_id => params[:classifier_id], :library_sample=> 1}) 
   end
 
   def new
@@ -23,7 +23,7 @@ class GestureSamplesController < ApplicationController
 		@gesture_sample.gesture = @gesture
     respond_to do |format|
       if @gesture_sample.save
-        format.html { redirect_to @gesture, notice: 'Gesture Sample was successfully created.' }
+        format.html { redirect_to gesture_classifier_gesture_samples_path(@gesture, @classifier), notice: 'Gesture Sample was successfully created.' }
         format.json { render json: @gesture_sample, status: :created, location: root_url }
       else
         format.html { render action: "new" }
