@@ -17,7 +17,8 @@ class ClinicsController < ApplicationController
   def show
 		@user = User.find(params[:user_id])
 		@clinic = @user.inverse_clinic
-
+		@sessions = @clinic.client_sessions
+		@gestures = @sessions.group(:gesture_id).joins(:gesture).select('gestures.title, gestures.id')
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @sessions }
@@ -39,6 +40,7 @@ class ClinicsController < ApplicationController
   # GET /clinics/1/edit
   def edit
     @clinic = User.find(params[:user_id]).inverse_clinic
+		@gestures = Gesture.all
   end
 
   # POST /clinics

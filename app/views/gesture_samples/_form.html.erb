@@ -43,6 +43,11 @@
     <%= f.label :region_length %><br />
     <%= f.number_field :region_length %>
   </div>
+
+  <div class="field">
+    <%= f.label :sensor_id %><br />
+    <%= f.number_field :sensor_id %>
+  </div>
   <div class="field">
     <%= f.hidden_field :classifier_id, :value => params[:classifier_id] %>
   </div>

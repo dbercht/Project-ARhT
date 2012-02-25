@@ -5,7 +5,7 @@ class ClientSessionsController < ApplicationController
 	def index
 		@clinic = User.find(params[:user_id]).inverse_clinic
 		#@sessions = ClientSession.find_grouped_by_metric(@clinic.id)
-		@sessions = @clinic.client_sessions(:select => [:created_at, :metric_one, :metric_two, :metric_three])
+		@sessions = @clinic.find_sessions_by_gesture(params[:gesture_id])
 		render :json => @sessions
 	end
 
