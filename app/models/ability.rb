@@ -12,6 +12,7 @@ class Ability
 			can :manage, GestureSample
 			can :manage, Classifier
     elsif user.client?
+			can :read, Gesture
 			can :manage, GestureSample
 			can :manage, User, :id => user.id
 		end

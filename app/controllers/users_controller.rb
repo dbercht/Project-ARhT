@@ -10,10 +10,11 @@ class UsersController < ApplicationController
 		@user = User.find(params[:id])
 		@clinic = @user.inverse_clinic(:select => [:id])
 		@excercises = @clinic.gestures
+		@gesture_samples = GestureSample.where("gesture_id IN (?)", @clinic.gesture_ids).order('gesture_id')
 		@gestures = Gesture.all
 	  respond_to do |format|
 	    format.html
-	    format.json { render :status=>200, :json => {:user => @user, :clinic => @clinic, :excercises => @excercises} }
+	    format.json { render :status=>200, :json => {:user => @user, :clinic => @clinic, :excercises => @excercises, :gesture_samples => @gesture_samples} }
 	  end
 	end
 
