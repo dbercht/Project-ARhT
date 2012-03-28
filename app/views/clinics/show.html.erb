@@ -4,15 +4,24 @@
 <%= javascript_include_tag '/javascripts/highcharts-exporting.js' %>
 <h2><%=@user.title%></h2>
 <%= link_to 'Edit/Back', user_path(@user) %>
-
+<!-- the tabs -->
+<ul class="tabs">
 	<%@gestures.each do |gesture|%>
-		<div id='statistics_<%=gesture.id%>' style='width: 100%; height: 250px; margin: 0 auto'></div>
+		<li><a href="#statistics_<%=gesture.id%>"><%=gesture.title%></a></li>
 	<% end %>
+</ul>
+<div class="panes">
+	<%@gestures.each do |gesture|%>
+		<div id='statistics_<%=gesture.id%>' class='hc_cont'></div>
+	<% end %>
+</div>
 
 
 <script type="text/javascript">
 var chart;
 jQuery(document).ready(function(){
+  $("ul.tabs").tabs("div.panes > div");
+
 	<% @str = Array.new %>
 	<%@gestures.each do |gesture|%>
 		<% @str << "chart(#{gesture.id}, '#{gesture.title}');" %>
@@ -24,7 +33,8 @@ function chart(gesture_id, title) {
 		chart: {
 			renderTo: 'statistics_'+gesture_id,
          zoomType: 'x',
-         defaultSeriesType: 'column'
+         defaultSeriesType: 'column',
+				width: 800
       },
       title: {
          text: title
@@ -39,12 +49,43 @@ function chart(gesture_id, title) {
             year: '%b'
          }
       },
-      yAxis: {
-         min: 0,
-         title: {
-            text: 'Performance'
-         }
-      },
+      yAxis:
+			[{ // Primary yAxis
+				min: 0,
+				max: 100,
+				labels: {
+					formatter: function() {
+						return this.value +' %';
+					},
+					style: {
+						color: '#00F'
+					}
+				},
+				title: {
+					text: 'Effort'
+				},
+				opposite: true
+
+			}, { // Secondary yAxis
+min: -50,
+max:50,
+				gridLineWidth: 0,
+				title: {
+					text: 'Variance',
+					style: {
+						color: '#920'
+					}
+				},
+				labels: {
+					formatter: function() {
+						return this.value;
+					},
+					style: {
+						color: '#920'
+					}
+				}
+
+			}],
       legend: {
          layout: 'vertical',
          align: 'left',
@@ -68,45 +109,49 @@ function chart(gesture_id, title) {
          }
       },
       series: [
-				<% @str = Array.new %>
-				<% ClientSession::METRICS.each do |metric| %>
-					<% @str << "{name: '#{metric}' }"%>
-				<% end %>
-				<%= @str.join(",\n\t") %>
-		]
-	};
+				{name: 'effort'},
+				{name: 'variance',
+					yAxis:1,
+					type:'spline',
+					marker: {
+						enabled: false
+					},
+					dashStyle: 'shortdot'}
+				]
+			};
  
-	// Load data asynchronously using jQuery. On success, add the data
-   // to the options and initiate the chart.
-   // This data is obtained by exporting a GA custom report to TSV.
-   // http://api.jquery.com/jQuery.get/
-	jQuery.getJSON('<%= user_client_sessions_path(@user, :format =>'json')%>?gesture_id='+gesture_id+'', function(data) {
-				<% ClientSession::METRICS.each do |metric| %>
-					<%= "var #{metric} = [];"%>
-				<% end %>
-		jQuery.each(data, function(key, value) {
-	
-			var d = new Date(value.created_at);
-		  var curr_minute = d.getMinutes();
-		  var curr_hour = d.getHours();
-		  var curr_date = d.getDate();
-  		var curr_month = d.getMonth(); //months are zero based
-  		var curr_year = d.getFullYear();
+			// Load data asynchronously using jQuery. On success, add the data
+			 // to the options and initiate the chart.
+			 // This data is obtained by exporting a GA custom report to TSV.
+			 // http://api.jquery.com/jQuery.get/
+				jQuery.getJSON('<%= user_client_sessions_path(@user, :format =>'json')%>?gesture_id='+gesture_id+'', function(data) {
+					var effort = [];
+					var variance = [];
+					jQuery.each(data, function(key, value) {
+						var mean_sum = 0;
+						var max_val = 1;	
 
-				<% ClientSession::METRICS.each do |metric| %>
-//Need to fucking fix this
 
-					<%= "#{metric}.push( [ Date.UTC(curr_year, curr_month, curr_date, curr_hour, curr_minute) , value.#{metric}] );"%>
-			<% end %>
-	  });      
+						for(var i = 0; i<value.length; i++){
+							mean_sum = mean_sum + parseFloat(value[i].effort);
+						}
+						mean_sum /= (i+1);
+						for(i = 0; i<value.length; i++){
+							var d = new Date(value[i].created_at);
+							var curr_minute = d.getMinutes();
+							var curr_hour = d.getHours();
+							var curr_date = d.getDate();
+							var curr_month = d.getMonth(); //months are zero based
+							var curr_year = d.getFullYear();
+							//alert(max_val);
 
-				<%@itr = 0 %>
-				<% ClientSession::METRICS.each do |metric| %>
+							effort.push( [ Date.UTC(curr_year, curr_month, curr_date, curr_hour, curr_minute) , value[i].effort] );
+							variance.push( [ Date.UTC(curr_year, curr_month, curr_date, curr_hour, curr_minute) , (value[i].effort-mean_sum)] );
+					}
+				});      
 
-					<%= "options.series[#{@itr}].data = #{metric};"%>
-					<%	@itr = @itr+1 %>
-				<% end %>
-      
+			options.series[0].data = effort;
+			options.series[1].data = variance;
       chart = new Highcharts.Chart(options);
    });
    

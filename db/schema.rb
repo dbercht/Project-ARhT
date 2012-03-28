@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120223221542) do
+ActiveRecord::Schema.define(:version => 20120327153351) do
 
   create_table "classifiers", :force => true do |t|
     t.string   "title"
@@ -62,11 +62,11 @@ ActiveRecord::Schema.define(:version => 20120223221542) do
 
   create_table "sessions", :force => true do |t|
     t.integer  "clinic_id"
-    t.decimal  "metric_one",   :precision => 6, :scale => 3
-    t.decimal  "metric_two",   :precision => 6, :scale => 3
-    t.decimal  "metric_three", :precision => 6, :scale => 3
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.decimal  "signal_length", :precision => 6, :scale => 3
+    t.decimal  "rms",           :precision => 6, :scale => 3
+    t.decimal  "classifier_id", :precision => 6, :scale => 3
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
     t.integer  "gesture_id"
   end
 

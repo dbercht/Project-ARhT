@@ -6,7 +6,9 @@ class ClientSessionsController < ApplicationController
 		@clinic = User.find(params[:user_id]).inverse_clinic
 		#@sessions = ClientSession.find_grouped_by_metric(@clinic.id)
 		@sessions = @clinic.find_sessions_by_gesture(params[:gesture_id])
-		render :json => @sessions
+		@rms = @clinic.find_rms_by_gesture(params[:gesture_id])
+		@effort = @clinic.find_effort_by_gesture(params[:gesture_id])
+		render :json => {:effort => @effort}
 	end
 
 	def show

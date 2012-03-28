@@ -3,8 +3,9 @@ class ClientSession < ActiveRecord::Base
 	belongs_to :gesture
 	self.table_name = 'sessions'
 
-	METRICS = %w[ metric_one metric_two metric_three ]
+	METRICS = %w[ effort  ]
 
+	#Will return the effort of the client session based on the clinic id
 	def self.find_grouped_by_metric(clinic_id)
 		@data = Hash.new
 		METRICS.each do |metric|
@@ -12,4 +13,5 @@ class ClientSession < ActiveRecord::Base
 		end
 		@data
 	end
+
 end
