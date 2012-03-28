@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120327153351) do
+ActiveRecord::Schema.define(:version => 20120328212343) do
 
   create_table "classifiers", :force => true do |t|
     t.string   "title"
@@ -38,19 +38,19 @@ ActiveRecord::Schema.define(:version => 20120327153351) do
   add_index "clinics_gestures", ["clinic_id", "gesture_id"], :name => "index_clinics_gestures_on_clinic_id_and_gesture_id"
 
   create_table "gesture_samples", :force => true do |t|
-    t.integer  "mean"
+    t.decimal  "mean",                  :precision => 6,  :scale => 3
     t.integer  "signal_length"
-    t.integer  "rms"
-    t.decimal  "vertices",              :precision => 6, :scale => 3
-    t.decimal  "baseline_crosses",      :precision => 6, :scale => 3
-    t.integer  "fundamental_frequency"
-    t.integer  "variance"
+    t.decimal  "rms",                   :precision => 6,  :scale => 3
+    t.decimal  "vertices",              :precision => 6,  :scale => 3
+    t.decimal  "baseline_crosses",      :precision => 6,  :scale => 3
+    t.decimal  "fundamental_frequency", :precision => 6,  :scale => 3
+    t.decimal  "variance",              :precision => 10, :scale => 1
     t.integer  "region_length"
     t.integer  "classifier_id"
     t.integer  "gesture_id"
-    t.datetime "created_at",                                                             :null => false
-    t.datetime "updated_at",                                                             :null => false
-    t.boolean  "library_sample",                                      :default => false
+    t.datetime "created_at",                                                              :null => false
+    t.datetime "updated_at",                                                              :null => false
+    t.boolean  "library_sample",                                       :default => false
     t.integer  "sensor_id"
   end
 

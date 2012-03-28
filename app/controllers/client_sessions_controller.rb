@@ -12,7 +12,7 @@ class ClientSessionsController < ApplicationController
 	end
 
 	def create
-		@cs = ClientSession.new(:clinic_id => params[:clinic_id], :rms => params[:rms], :signal_length => params[:signal_length], :gesture_id => params[:gesture_id])
+		@cs = ClientSession.new(:clinic_id => params[:clinic_id], :rms => params[:rms], :signal_length => params[:signal_length], :gesture_id => params[:gesture_id], :classifier_id => params[:classifier_id])
 		@cs.save
 	end
 
