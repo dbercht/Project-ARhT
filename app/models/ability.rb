@@ -14,6 +14,7 @@ class Ability
     elsif user.client?
 			can :read, Gesture
 			can :manage, GestureSample
+			can :create, ClientSession
 			can :manage, User, :id => user.id
 		end
     #

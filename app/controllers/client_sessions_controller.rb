@@ -11,6 +11,11 @@ class ClientSessionsController < ApplicationController
 		render :json => {:effort => @effort}
 	end
 
+	def create
+		@cs = ClientSession.new(:therapy_id => params[:therapy_id], :clinic_id => params[:clinic_id], :rms = params[:rms], :signal_length = params[:signal_length], :gesture_id = params[:gesture_id])
+		@cs.save
+	end
+
 	def show
 	end
 
