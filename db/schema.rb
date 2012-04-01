@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120328212343) do
+ActiveRecord::Schema.define(:version => 20120401224652) do
 
   create_table "classifiers", :force => true do |t|
     t.string   "title"
@@ -56,8 +56,10 @@ ActiveRecord::Schema.define(:version => 20120328212343) do
 
   create_table "gestures", :force => true do |t|
     t.text     "title"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+    t.string   "description"
+    t.string   "repetitions", :limit => 1
   end
 
   create_table "sessions", :force => true do |t|
