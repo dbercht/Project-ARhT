@@ -11,7 +11,7 @@ class ClientSessionsController < ApplicationController
 	end
 
 	def create
-		@cs = ClientSession.new(:clinic_id => params[:clinic_id], :effort => params[:effort], :gesture_id => params[:gesture_id], :classifier_id => params[:classifier_id])
+		@cs = ClientSession.new(:clinic_id => params[:clinic_id], :created_at => params[:created_at], :effort => params[:effort], :gesture_id => params[:gesture_id], :classifier_id => params[:classifier_id])
 		@cs.save
 	end
 
