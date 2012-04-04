@@ -144,11 +144,8 @@ max:50,
 							var curr_month = d.getMonth(); //months are zero based
 							var curr_year = d.getFullYear();
 							//alert(max_val);
-								var d = new Date()
-								var n = d.getTimezoneOffset();
-var msOffset = n*60*1000
-							effort.push( [ Date.UTC(curr_year, curr_month, curr_date, curr_hour, curr_minute) -msOffset, value[i].effort] );
-							variance.push( [ Date.UTC(curr_year, curr_month, curr_date, curr_hour, curr_minute) - msOffset , (value[i].effort-mean_sum)] );
+							effort.push( [ Date.UTC(curr_year, curr_month, curr_date, curr_hour, curr_minute), value[i].effort] );
+							variance.push( [ Date.UTC(curr_year, curr_month, curr_date, curr_hour, curr_minute), (value[i].effort-mean_sum)] );
 					}
 				});      
 
