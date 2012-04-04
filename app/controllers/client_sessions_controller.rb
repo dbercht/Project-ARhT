@@ -13,6 +13,7 @@ class ClientSessionsController < ApplicationController
 	def create
 		@cs = ClientSession.new(:clinic_id => params[:clinic_id], :created_at => params[:created_at], :effort => params[:effort], :gesture_id => params[:gesture_id], :classifier_id => params[:classifier_id])
 		@cs.save
+		render :json => {status => 200}
 	end
 
 	def show
