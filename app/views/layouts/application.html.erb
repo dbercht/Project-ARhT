@@ -5,24 +5,33 @@
 
 	  <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
-<script src="http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js"></script>
 
   <%= csrf_meta_tags %>
+<script>
+	jQuery(document).ready(function(){
+		jQuery('#devise_messages').delay(3000).hide(500);
+	});
+</script>
 </head>
-<body>
-	<div id='container'>
-		<div id='devise_messages'>
- 	      <p class="notice"><%= notice %></p>
- 	      <p class="alert"><%= alert %></p>
-		</div>
-		<div id='session_administration'>
+<body>		<%if alert || notice %>
+			<div id='devise_messages'class='ui-corner-all'>
+	 	      <p class="notice"><%= notice %></p>
+	 	      <p class="alert"><%= alert %></p>
+			</div>
+		<% end %>
+	<div id='container' class='ui-corner-all'>
+
+		<div id='session_administration' class='right'>
 			<% if user_signed_in? %>
 				<%= link_to 'Edit', edit_user_registration_path%>
 				<%= link_to 'Sign out', destroy_user_session_path, :method => :delete%>
 			<% else %>
 				<%= link_to 'Sign in', new_user_session_path%>
 			<% end %>
+
 		</div>
+
+<div class='clear'></div>
 		<%= yield %>
 	</div>
 </body>

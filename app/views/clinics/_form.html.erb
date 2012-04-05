@@ -1,8 +1,23 @@
+<script>
+	$(function() {
+		$( "#clinic_therapy_repetitions_slider" ).slider({
+			range: "min",
+			value: 12,
+			min: 1,
+			max: 20,
+			slide: function( event, ui ) {
+				$( "#clinic_therapy_repetitions" ).val(ui.value );
+			}
+		});
+		$( "#clinic_therapy_repetitions" ).val( $( "#clinic_therapy_repetitions_slider" ).slider( "value" ) );
+	});
+
+	</script>
+
 <%= form_for(@clinic, :url => user_clinic_url(@user)) do |f| %>
   <% if @clinic.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@clinic.errors.count, "error") %> prohibited this clinic from being saved:</h2>
-
       <ul>
       <% @clinic.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -12,20 +27,9 @@
   <% end %>
 	<div id='reminder_form'>
 		<div class="field">
-		  <%= f.label :therapy_start_hour %><br />
-		  <%= f.number_field :therapy_start_hour, :in => 8...22%>
-		</div>
-		<div class="field">
-		  <%= f.label :therapy_start_minute %><br />
-		  <%= f.number_field :therapy_start_minute, :in => 0...60, :step => 15%>
-		</div>
-		<div class="field">
 		  <%= f.label :therapy_repetitions %><br />
-		  <%= f.number_field :therapy_repetitions, :in => 1...20%>
-		</div>
-		<div class="field">
-		  <%= f.label :therapy_repetition_interval %><br />
-		  <%= f.number_field :therapy_repetition_interval, :in => 10...999, :step => 15 %>
+		  <%= f.text_field :therapy_repetitions, :in => 1...20%>
+			<div style="width:30%;" id="clinic_therapy_repetitions_slider"></div>
 		</div>
 	</div>
 	<%unless @clinic.gestures.empty? %>
@@ -33,13 +37,14 @@
 	<%else%>
 		Assign Excercises:
 	<%end%>
-	<% for gesture in @gestures %>
-		<div id="gesture_checkbox">
-			<%= check_box_tag "clinic[gesture_ids][]", gesture.id, @clinic.gestures.include?(gesture) %>
-			<%= gesture.title %>
-		</div>
-	<% end %>
-
+	<div id='gesture_checkboxes'>
+		<% for gesture in @gestures %>
+<div class="checkbox_wrapper">
+				<%= check_box_tag "clinic[gesture_ids][]", gesture.id, @clinic.gestures.include?(gesture), :id => "gesture_checkboxes_id_"<<gesture.title %>
+				<label for="<%="gesture_checkboxes_id_"<<gesture.title%>"><%= gesture.title %>
+</div>
+		<% end %>
+	</div>
   <div class="actions">
     <%= f.submit 'Update Therapy Information' %>
   </div>

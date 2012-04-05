@@ -2,26 +2,24 @@
 
 <%= javascript_include_tag '/javascripts/highcharts.js' %>
 <%= javascript_include_tag '/javascripts/highcharts-exporting.js' %>
+
 <h2><%=@user.title%></h2>
 <%= link_to 'Edit/Back', user_path(@user) %>
 <!-- the tabs -->
-<ul class="tabs">
-	<%@gestures.each do |gesture|%>
-		<li><a href="#statistics_<%=gesture.id%>"><%=gesture.title%></a></li>
-	<% end %>
-</ul>
-<div class="panes">
-	<%@gestures.each do |gesture|%>
-		<div id='statistics_<%=gesture.id%>' class='hc_cont'></div>
-	<% end %>
+<div id="tabs">
+	<ul>
+		<%@gestures.each do |gesture|%>
+			<li><a href="#statistics_<%=gesture.id%>"><%=gesture.title%></a></li>
+		<% end %>
+	</ul>
+		<%@gestures.each do |gesture|%>
+			<div id='statistics_<%=gesture.id%>' class='hc_cont'></div>
+		<% end %>
 </div>
-
 
 <script type="text/javascript">
 var chart;
 jQuery(document).ready(function(){
-  $("ul.tabs").tabs("div.panes > div");
-
 	<% @str = Array.new %>
 	<%@gestures.each do |gesture|%>
 		<% @str << "chart(#{gesture.id}, '#{gesture.title}');" %>
@@ -156,6 +154,7 @@ var msOffset = n*60*1000
 			options.series[1].data = variance;
       chart = new Highcharts.Chart(options);
    });
-   
+
+	jQuery('#tabs').tabs();
 }
 </script>	

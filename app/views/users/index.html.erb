@@ -1,6 +1,29 @@
+
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+        jQuery("#myTable").tablesorter( { 
+        // sort on the first column and third column, order asc 
+        sortList: [[0,0]] 
+    	});
+	}); 
+</script>
+
 <%= link_to 'New Client', new_user_path %>
 <br />
 <hr />
 
+<table id="myTable" class="tablesorter">
+	<thead>
+		<tr>
+			<th>
+				Last Name
+			</th>
+			<th>
+				First Name
+			</th>
+		</tr>
+	</thead>
+	<tbody>
 <%= render :partial => 'user', :collection => @users%>
-
+	</tbody>
+</table>

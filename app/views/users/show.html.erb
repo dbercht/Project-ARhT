@@ -1,6 +1,22 @@
+<script type="text/javascript">
+	var chart;
+	jQuery(document).ready(function(){
+		jQuery("#tabs").tabs();	
+	});
+</script>
+
 <h2><%=@user.title%></h2>
-<%=link_to 'Show Therapy Results', user_clinic_path(@user)%><br />
-<%=link_to 'Edit User Registration', edit_user_path(@user)%>
-<br />
-<%=render :partial => 'clinics/clinic', :object => @clinic, :@clinic => :clinic %>
-<%= link_to 'Back', users_path %>
+<div id="tabs">
+	<ul>
+		<li><a href="#home">User Home</a></li>
+		<li><a href="#edit">Edit User</a></li>
+	</ul>
+	<div id="home">
+		<%=link_to 'Show Therapy Results', user_clinic_path(@user)%><br />
+		<%=link_to 'Edit User Registration', edit_user_path(@user)%><br />
+		<%= link_to 'Back', users_path %>
+	</div>
+	<div id="edit">
+		<%=render :partial => 'clinics/clinic', :object => @clinic, :@clinic => :clinic %>
+	</div>
+	</div>
