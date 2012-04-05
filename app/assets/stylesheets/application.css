@@ -32,7 +32,8 @@ body{
 
 #devise_messages{
 	position: fixed; 
-	left: 0px;
+	top: 0px;
+	right: 0px;
 	margin: 10px auto;
 	padding: 10px;
 	background: white;
