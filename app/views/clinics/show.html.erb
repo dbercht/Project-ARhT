@@ -6,14 +6,14 @@
 <h2><%=@user.title%></h2>
 <%= link_to 'Edit/Back', user_path(@user) %>
 <!-- the tabs -->
-<div id="tabs">
+<div id="tabs" style="height:100%">
 	<ul>
 		<%@gestures.each do |gesture|%>
 			<li><a href="#statistics_<%=gesture.id%>"><%=gesture.title%></a></li>
 		<% end %>
 	</ul>
 		<%@gestures.each do |gesture|%>
-			<div id='statistics_<%=gesture.id%>' class='hc_cont'></div>
+			<div id='statistics_<%=gesture.id%>' class='hc_cont' style="height:550px"></div>
 		<% end %>
 </div>
 
