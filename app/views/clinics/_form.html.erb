@@ -1,15 +1,17 @@
 <script>
 	$(function() {
+		
+var v = $( "#clinic_therapy_repetitions" ).val();
 		$( "#clinic_therapy_repetitions_slider" ).slider({
-			range: "min",
-			value: 12,
+			range: "min", 
+			value: v,
 			min: 1,
 			max: 20,
 			slide: function( event, ui ) {
 				$( "#clinic_therapy_repetitions" ).val(ui.value );
 			}
 		});
-		$( "#clinic_therapy_repetitions" ).val( $( "#clinic_therapy_repetitions_slider" ).slider( "value" ) );
+		
 	});
 
 	</script>
